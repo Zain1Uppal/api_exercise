@@ -4,19 +4,21 @@ from werkzeug import exceptions
 
 app = Flask(__name__)
 CORS(app)
-Games = ['farcry 6', 'COD']
+Games = [{'name':'farcry 6'}, {'name': 'COD'}]
 
 @app.route('/')
 def entry():
     return 'Welcome to this API'
 
 @app.route('/Games', methods=['GET', 'POST'])
-def pokemon_handler():
+def game_handler():
     if request.method == 'GET':
-        return jsonify({'Game': Games}), 200s
+        return jsonify({'Game': Games}), 200
     elif request.method == 'POST':
-        data = request.json
-        return f"{data['name']} played {data['Game']}"
+        data = request.get_json()
+        Games.append(data)
+        resp = {'Game': Games}
+        return jsonify(resp), 201
 
 
 @app.errorhandler(exceptions.NotFound)
