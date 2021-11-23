@@ -4,6 +4,7 @@ from werkzeug import exceptions
 
 app = Flask(__name__)
 CORS(app)
+Games = ['farcry 6', 'COD']
 
 @app.route('/')
 def entry():
@@ -12,7 +13,7 @@ def entry():
 @app.route('/Games', methods=['GET', 'POST'])
 def pokemon_handler():
     if request.method == 'GET':
-        return jsonify(['Farcry 6', 'Zain']), 200
+        return jsonify({'Game': Games}), 200s
     elif request.method == 'POST':
         data = request.json
         return f"{data['name']} played {data['Game']}"
@@ -20,7 +21,7 @@ def pokemon_handler():
 
 @app.errorhandler(exceptions.NotFound)
 def handle_404(err):
-    return jsonify({"message": f"{err}"}), 404
+    return jsonify({"message": f"Error {err}"}), 404
 
 @app.errorhandler(exceptions.InternalServerError)
 def handle_500(err):

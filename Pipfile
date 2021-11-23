@@ -8,6 +8,13 @@ flask = "*"
 flask-cors = "*"
 
 [dev-packages]
+pytest = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.9"
+
+[scripts]
+start = "python app.js"
+test = "pytest ."
+coverage = "pytest --cov-report term-missing --cov=."
